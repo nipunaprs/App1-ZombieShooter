@@ -11,10 +11,26 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     public float gravity = -9.81f;
 
+    //Ensures player moves to the ground
     public bool isGrounded;
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+
+    //Controls
+    public KeyCode crouchKey = KeyCode.LeftControl;
+    public bool shouldCrouch => Input.GetKeyDown(crouchKey);
+
+    //Crouching and standing
+    public float crouchHeight = 0.5f;
+    public float standHeight = 2f;  
+    public float timeToCrouch = 0.5f; 
+    public Vector3 camCenterPoint = new Vector3(0,0,0);
+    public Vector3 camCrouchPoint = new Vector3(0,0.5f,0);
+    public bool isCrouching = false;
+    public bool duringCrouchAnimation;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+
         //Get input variables from Input Manager
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -44,4 +61,9 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
+    void HandleJump() {
+
+    }
+
 }
