@@ -9,7 +9,8 @@ public class ZombieManager : MonoBehaviour
     public GameObject player;
     public Animator enemyAnimator;
     public float damage = 20f;
-
+    public float health = 100f;
+    public GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,17 @@ public class ZombieManager : MonoBehaviour
             enemyAnimator.SetBool("isRunning", false);
         }
 
+    }
+
+    public void Shot(float damage)
+    {
+        health -= damage;
+
+        if(health <= 0)
+        {
+            gameManager.enemiesAlive--;
+            Destroy(gameObject); //can also use the this keyword here
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
