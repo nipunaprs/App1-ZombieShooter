@@ -8,6 +8,8 @@ public class ZombieManager : MonoBehaviour
 
     public GameObject player;
     public Animator enemyAnimator;
+    public float damage = 20f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +36,8 @@ public class ZombieManager : MonoBehaviour
     {
         if(collision.gameObject == player)
         {
-
+            //Call the method in the PlayerManager script
+            player.GetComponent<PlayerManager>().Hit(damage);
         }
     }
 
