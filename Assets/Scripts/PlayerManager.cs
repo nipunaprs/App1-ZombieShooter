@@ -9,24 +9,15 @@ public class PlayerManager : MonoBehaviour
     //Character health variable
     public float health = 100;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameManager gameManager;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Hit(float damage){
         health -= damage;
         Debug.Log(health);
         if(health <= 0)
         {
-            SceneManager.LoadScene(0);
+            gameManager.EndGame();
         }
     }
 

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +15,15 @@ public class GameManager : MonoBehaviour
 
     public GameObject enemyPrefab;
 
+    public GameObject player;
+
+    public Text roundNumber;
+    public Text enemiesLeft;
+    public Text playerHealth;
+    public Text endGameRoundSurvived;
+
+    public GameObject endScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +33,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(enemiesAlive == 0)
+        playerHealth.text = "Health " + player.GetComponent<PlayerManager>().health.ToString();
+        enemiesLeft.text = "Enemies " + enemiesAlive.ToString();
+
+        if (enemiesAlive == 0)
         {
             round++;
             NextWave(round);
+            roundNumber.text = "Round " + round.ToString();
         }
     }
 
@@ -42,6 +57,27 @@ public class GameManager : MonoBehaviour
         }
 
         
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1; //Reset time movement
+        SceneManager.LoadScene(1);
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1; //Reset time movement
+        SceneManager.LoadScene(0);
+    }
+
+    public void EndGame()
+    {
+        
+        Time.timeScale = 0; //Pause time code
+        Cursor.lockState = CursorLockMode.None; //Allow cursor use again
+        endScreen.SetActive(true);
+        endGameRoundSurvived.text = round.ToString();
     }
 
 }
